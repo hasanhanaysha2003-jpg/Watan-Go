@@ -91,11 +91,11 @@ function Home() {
                   <span className="block mt-2 text-3xl md:text-5xl text-gradient tracking-wide" dir="ltr">Watan Go</span>
                 </h1>
                 <p className="mt-6 font-display text-2xl md:text-4xl font-semibold leading-tight text-muted-foreground">
-                  منصة واحدة لـ<span className="text-foreground">التنقل والتوصيل</span> والتسوق.
+                  منصة واحدة لـلتنقل والتوصيل والتسوق.
                 </p>
 
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl leading-relaxed">
-                  وطن جو يجمع النقل وتوصيل الطعام والتجزئة في منظومة لحظية واحدة — خمسة أدوار،
+                  وطن جو يجمع التنقل وتوصيل الطعام والتسوق في منظومة لحظية واحدة — خمسة أدوار،
                   ونظام سلس متكامل.
                 </p>
 

@@ -76,14 +76,14 @@ function FoodPage() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link to="/users" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary/80 px-6 py-3.5 text-sm font-semibold text-primary-foreground glow">
-            <ShoppingBag className="h-4 w-4" /> واجهة العميل
+          <Link to="/dashboard/customer" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary/80 px-6 py-3.5 text-sm font-semibold text-primary-foreground glow">
+            <ShoppingBag className="h-4 w-4" /> لوحة المستخدم
           </Link>
-          <Link to="/merchants" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
-            <ChefHat className="h-4 w-4" /> واجهة المطعم
+          <Link to="/shops" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
+            <ChefHat className="h-4 w-4" /> التسوق من المتاجر
           </Link>
-          <Link to="/drivers" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
-            <Truck className="h-4 w-4" /> واجهة السائق
+          <Link to="/ride-request" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
+            <Truck className="h-4 w-4" /> احجز رحلة
           </Link>
         </div>
       </section>

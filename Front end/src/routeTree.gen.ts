@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
 import { Route as ShopsRouteImport } from './routes/shops'
 import { Route as RidesRouteImport } from './routes/rides'
+import { Route as RideRequestRouteImport } from './routes/ride-request'
+import { Route as RestaurantsRouteImport } from './routes/restaurants'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as MerchantsRouteImport } from './routes/merchants'
 import { Route as LoginRouteImport } from './routes/login'
@@ -21,6 +23,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RestaurantsIdRouteImport } from './routes/restaurants.$id'
 import { Route as DashboardShopRouteImport } from './routes/dashboard.shop'
 import { Route as DashboardRestaurantRouteImport } from './routes/dashboard.restaurant'
 import { Route as DashboardDriverRouteImport } from './routes/dashboard.driver'
@@ -40,6 +43,16 @@ const ShopsRoute = ShopsRouteImport.update({
 const RidesRoute = RidesRouteImport.update({
   id: '/rides',
   path: '/rides',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RideRequestRoute = RideRequestRouteImport.update({
+  id: '/ride-request',
+  path: '/ride-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestaurantsRoute = RestaurantsRouteImport.update({
+  id: '/restaurants',
+  path: '/restaurants',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
@@ -87,6 +100,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantsIdRoute = RestaurantsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => RestaurantsRoute,
+} as any)
 const DashboardShopRoute = DashboardShopRouteImport.update({
   id: '/dashboard/shop',
   path: '/dashboard/shop',
@@ -123,6 +141,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/merchants': typeof MerchantsRoute
   '/register': typeof RegisterRoute
+  '/restaurants': typeof RestaurantsRouteWithChildren
+  '/ride-request': typeof RideRequestRoute
   '/rides': typeof RidesRoute
   '/shops': typeof ShopsRoute
   '/users': typeof UsersRoute
@@ -131,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/driver': typeof DashboardDriverRoute
   '/dashboard/restaurant': typeof DashboardRestaurantRoute
   '/dashboard/shop': typeof DashboardShopRoute
+  '/restaurants/$id': typeof RestaurantsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,6 +163,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/merchants': typeof MerchantsRoute
   '/register': typeof RegisterRoute
+  '/restaurants': typeof RestaurantsRouteWithChildren
+  '/ride-request': typeof RideRequestRoute
   '/rides': typeof RidesRoute
   '/shops': typeof ShopsRoute
   '/users': typeof UsersRoute
@@ -150,6 +173,7 @@ export interface FileRoutesByTo {
   '/dashboard/driver': typeof DashboardDriverRoute
   '/dashboard/restaurant': typeof DashboardRestaurantRoute
   '/dashboard/shop': typeof DashboardShopRoute
+  '/restaurants/$id': typeof RestaurantsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -162,6 +186,8 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/merchants': typeof MerchantsRoute
   '/register': typeof RegisterRoute
+  '/restaurants': typeof RestaurantsRouteWithChildren
+  '/ride-request': typeof RideRequestRoute
   '/rides': typeof RidesRoute
   '/shops': typeof ShopsRoute
   '/users': typeof UsersRoute
@@ -170,6 +196,7 @@ export interface FileRoutesById {
   '/dashboard/driver': typeof DashboardDriverRoute
   '/dashboard/restaurant': typeof DashboardRestaurantRoute
   '/dashboard/shop': typeof DashboardShopRoute
+  '/restaurants/$id': typeof RestaurantsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -183,6 +210,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/merchants'
     | '/register'
+    | '/restaurants'
+    | '/ride-request'
     | '/rides'
     | '/shops'
     | '/users'
@@ -191,6 +220,7 @@ export interface FileRouteTypes {
     | '/dashboard/driver'
     | '/dashboard/restaurant'
     | '/dashboard/shop'
+    | '/restaurants/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -202,6 +232,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/merchants'
     | '/register'
+    | '/restaurants'
+    | '/ride-request'
     | '/rides'
     | '/shops'
     | '/users'
@@ -210,6 +242,7 @@ export interface FileRouteTypes {
     | '/dashboard/driver'
     | '/dashboard/restaurant'
     | '/dashboard/shop'
+    | '/restaurants/$id'
   id:
     | '__root__'
     | '/'
@@ -221,6 +254,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/merchants'
     | '/register'
+    | '/restaurants'
+    | '/ride-request'
     | '/rides'
     | '/shops'
     | '/users'
@@ -229,6 +264,7 @@ export interface FileRouteTypes {
     | '/dashboard/driver'
     | '/dashboard/restaurant'
     | '/dashboard/shop'
+    | '/restaurants/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -241,6 +277,8 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MerchantsRoute: typeof MerchantsRoute
   RegisterRoute: typeof RegisterRoute
+  RestaurantsRoute: typeof RestaurantsRouteWithChildren
+  RideRequestRoute: typeof RideRequestRoute
   RidesRoute: typeof RidesRoute
   ShopsRoute: typeof ShopsRoute
   UsersRoute: typeof UsersRoute
@@ -272,6 +310,20 @@ declare module '@tanstack/react-router' {
       path: '/rides'
       fullPath: '/rides'
       preLoaderRoute: typeof RidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ride-request': {
+      id: '/ride-request'
+      path: '/ride-request'
+      fullPath: '/ride-request'
+      preLoaderRoute: typeof RideRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurants': {
+      id: '/restaurants'
+      path: '/restaurants'
+      fullPath: '/restaurants'
+      preLoaderRoute: typeof RestaurantsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -337,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurants/$id': {
+      id: '/restaurants/$id'
+      path: '/$id'
+      fullPath: '/restaurants/$id'
+      preLoaderRoute: typeof RestaurantsIdRouteImport
+      parentRoute: typeof RestaurantsRoute
+    }
     '/dashboard/shop': {
       id: '/dashboard/shop'
       path: '/dashboard/shop'
@@ -375,6 +434,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface RestaurantsRouteChildren {
+  RestaurantsIdRoute: typeof RestaurantsIdRoute
+}
+
+const RestaurantsRouteChildren: RestaurantsRouteChildren = {
+  RestaurantsIdRoute: RestaurantsIdRoute,
+}
+
+const RestaurantsRouteWithChildren = RestaurantsRoute._addFileChildren(
+  RestaurantsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -385,6 +456,8 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MerchantsRoute: MerchantsRoute,
   RegisterRoute: RegisterRoute,
+  RestaurantsRoute: RestaurantsRouteWithChildren,
+  RideRequestRoute: RideRequestRoute,
   RidesRoute: RidesRoute,
   ShopsRoute: ShopsRoute,
   UsersRoute: UsersRoute,

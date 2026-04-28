@@ -82,11 +82,11 @@ function ShopsPage() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link to="/users" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary/80 px-6 py-3.5 text-sm font-semibold text-primary-foreground glow">
-            <ShoppingCart className="h-4 w-4" /> واجهة المتسوّق
+          <Link to="/dashboard/customer" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary/80 px-6 py-3.5 text-sm font-semibold text-primary-foreground glow">
+            <ShoppingCart className="h-4 w-4" /> لوحة المستخدم
           </Link>
-          <Link to="/merchants" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
-            <Store className="h-4 w-4" /> واجهة المتجر
+          <Link to="/restaurants" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
+            <Store className="h-4 w-4" /> طلب طعام
           </Link>
         </div>
       </section>

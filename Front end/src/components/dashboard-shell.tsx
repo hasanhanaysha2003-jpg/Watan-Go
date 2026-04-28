@@ -1,7 +1,16 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { LogOut } from "lucide-react";
-import { getAuth, clearAuth, labelForRole, emojiForRole, type AuthUser, type Role } from "@/lib/auth";
+import {
+  clearAuth,
+  emojiForRole,
+  getAuth,
+  getDashboardNavLinks,
+  labelForRole,
+  redirectToOwnDashboard,
+  type AuthUser,
+  type Role,
+} from "@/lib/auth";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -16,25 +25,28 @@ export function DashboardShell({ expectedRole, children }: Props) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const u = getAuth();
-    if (!u) {
-      toast.error("يجب تسجيل الدخول أولاً");
+    const currentUser = getAuth();
+
+    if (!currentUser) {
+      toast.error("يجب تسجيل الدخول أولًا");
       navigate({ to: "/login" });
       return;
     }
-    if (u.role !== expectedRole) {
+
+    if (currentUser.role !== expectedRole) {
       toast.error("لا تملك صلاحية الوصول لهذه اللوحة");
-      navigate({ to: "/login" });
+      navigate({ to: redirectToOwnDashboard(currentUser) });
       return;
     }
-    setUser(u);
+
+    setUser(currentUser);
     setReady(true);
   }, [expectedRole, navigate]);
 
   if (!ready || !user) {
     return (
       <div dir="rtl" className="flex min-h-screen items-center justify-center bg-background text-muted-foreground">
-        <div className="font-mono text-sm">جاري التحقق من الجلسة...</div>
+        <div className="font-mono text-sm">جارٍ التحقق من الجلسة...</div>
       </div>
     );
   }
@@ -45,10 +57,12 @@ export function DashboardShell({ expectedRole, children }: Props) {
     navigate({ to: "/login" });
   };
 
+  const roleLinks = getDashboardNavLinks(user.role);
+
   return (
     <div dir="rtl" className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
           <Link to="/" className="flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-cyan glow">
               <span className="font-display text-base font-bold text-primary-foreground">و</span>
@@ -63,6 +77,19 @@ export function DashboardShell({ expectedRole, children }: Props) {
             </div>
           </Link>
 
+          <nav className="hidden items-center gap-1 md:flex">
+            {roleLinks.map((link, index) => (
+              <Link
+                key={`${link.label}-${index}`}
+                to={link.to}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                activeProps={{ className: "rounded-lg px-3 py-2 text-sm font-medium text-foreground bg-secondary" }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <div className="hidden items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1.5 sm:flex">
@@ -73,7 +100,7 @@ export function DashboardShell({ expectedRole, children }: Props) {
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 rounded-lg border border-border bg-secondary/40 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40"
+              className="flex items-center gap-1.5 rounded-lg border border-border bg-secondary/40 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-destructive/40 hover:bg-destructive/10 hover:text-destructive"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">خروج</span>

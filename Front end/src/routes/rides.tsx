@@ -76,11 +76,11 @@ function RidesPage() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link to="/users" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary/80 px-6 py-3.5 text-sm font-semibold text-primary-foreground glow">
-            <Users className="h-4 w-4" /> واجهة الراكب
+          <Link to="/dashboard/customer" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary/80 px-6 py-3.5 text-sm font-semibold text-primary-foreground glow">
+            <Users className="h-4 w-4" /> لوحة المستخدم
           </Link>
-          <Link to="/drivers" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
-            <Car className="h-4 w-4" /> واجهة السائق
+          <Link to="/ride-request" className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-6 py-3.5 text-sm font-semibold">
+            <Car className="h-4 w-4" /> اطلب رحلة
           </Link>
         </div>
       </section>

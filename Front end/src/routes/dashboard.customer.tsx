@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardShell, StatCard } from "@/components/dashboard-shell";
 import { Car, UtensilsCrossed, Store, MapPin, Clock, Heart } from "lucide-react";
 
@@ -13,9 +13,9 @@ export const Route = createFileRoute("/dashboard/customer")({
           </section>
 
           <section className="grid gap-4 sm:grid-cols-3">
-            <ServiceCard icon={<UtensilsCrossed />} title="اطلب طعاماً" desc="من مطاعم مدينتك" color="text-amber" />
-            <ServiceCard icon={<Store />} title="تسوّق" desc="من المحلات والصيدليات" color="text-cyan" />
-            <ServiceCard icon={<Car />} title="احجز رحلة" desc="سيارة في دقائق" color="text-primary" />
+            <ServiceCard to="/restaurants" icon={<UtensilsCrossed />} title="اطلب طعاماً" desc="من مطاعم مدينتك" color="text-amber" />
+            <ServiceCard to="/shops" icon={<Store />} title="تسوّق" desc="من المحلات والصيدليات" color="text-cyan" />
+            <ServiceCard to="/ride-request" icon={<Car />} title="احجز رحلة" desc="سيارة في دقائق" color="text-primary" />
           </section>
 
           <section className="grid gap-4 md:grid-cols-3">
@@ -61,14 +61,14 @@ export const Route = createFileRoute("/dashboard/customer")({
   ),
 });
 
-function ServiceCard({ icon, title, desc, color }: { icon: React.ReactNode; title: string; desc: string; color: string }) {
+function ServiceCard({ to, icon, title, desc, color }: { to: string; icon: React.ReactNode; title: string; desc: string; color: string }) {
   return (
-    <button className="card-elevated group flex items-center gap-4 p-5 text-right">
+    <Link to={to} className="card-elevated group flex cursor-pointer items-center gap-4 p-5 text-right transition-transform duration-200 hover:-translate-y-0.5">
       <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-secondary ${color}`}>{icon}</div>
       <div>
         <div className="font-display font-bold">{title}</div>
         <div className="mt-0.5 text-xs text-muted-foreground">{desc}</div>
       </div>
-    </button>
+    </Link>
   );
 }
